@@ -11,7 +11,7 @@ jewel.game = (function() {
 		}
 		jewel.screens[screenId].run();
 		dom.addClass(screen,"active");
-		console.log('Showing ' + screenId + '.');
+		console.log('Game: Showing sreen \'' + screenId + '\'.');
 	}
 
 	return {

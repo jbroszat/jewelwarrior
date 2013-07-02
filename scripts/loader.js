@@ -1,7 +1,13 @@
 // loader.js
 
 var jewel = {
-	screens:{}
+	screens:{},
+	settings: {
+		'rows':8,
+		'cols':8,
+		'baseScore':100,
+		'numJewelTypes':7
+	}
 };
 
 window.addEventListener('load',function(){
@@ -11,9 +17,10 @@ window.addEventListener('load',function(){
 			'scripts/dom.js',
 			'scripts/game.js',
 			'scripts/screen.splash.js',
-			'scripts/screen.main-menu.js'],
+			'scripts/screen.main-menu.js',
+			'scripts/board.js'],
 		complete: function() {
-			console.log('Modernizr: Alle Scripte geladen.');
+			console.log('Modernizr: Done loading scripts.');
 			jewel.game.showScreen('splash-screen');
 		}
 	}]);
