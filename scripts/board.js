@@ -32,6 +32,9 @@ jewel.board = (function(){
 				jewels[x][y] = type;
 			}
 		}
+		if (!hasMoves()) {
+			fillboard();
+		}
 	}
 
 	function getJewel(x,y) {
@@ -94,14 +97,41 @@ jewel.board = (function(){
 	function getChains() {
 		var x,y,chains = [];
 
-		for (x = 0, x < cols; x++) {
+		for (x = 0; x < cols; x++) {
 			chains[x] = [];
-			for (y = 0, y < rows; y++) {
+			for (y = 0; y < rows; y++) {
 				chains[x][y] = checkChain(x,y);
 			}
 		}
 
 		return chains;
+	}
+
+	function hasMoves() {
+		for (var x = 0; x < cols; x++) {
+			for (var y = 0; y < rows; y++) {
+				if (canJewelMove(x,y)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	function canJewelMove(x,y) {
+		return ((x > 0 && canSwap(x,y,x-1,y)) ||
+				(x < cols - 1 && canSwap(x,y,x+1,y)) ||
+				(y > 0 && canSwap(x,y,x,y-1)) ||
+				(y < rows - 1 && canSwap(x,y,x,y+1)) );
+	}
+
+	function getBoard() {
+		var copy = [],x;
+
+		for (x = 0; x < cols; x++) {
+			copy[x] = jewels[x].slice(0);
+		}
+		return copy;
 	}
 
 	function check(events) {
@@ -152,9 +182,32 @@ jewel.board = (function(){
 				'type':"moved",
 				'data':moved
 			});
+
+			if (!hasMoves) {
+				fillboard();
+				events.push({
+					'type':"refill",
+					'data':getBoard()
+				});
+			}
 			return check(events);
 		} else {
 			return events;
+		}
+	}
+
+	function swap(x1,y1,x2,y2,callback) {
+		var tmp,events;
+
+		if (canSwap(x1,y1,x2,y2)) {
+			tmp = getJewel(x1,y1);
+			jewels[x1][y1] = getJewel(x2,y2);
+			jewels[x2][y2] = tmp;
+
+			events = check();
+			callback(events);
+		} else {
+			callback(false);
 		}
 	}
 
@@ -170,9 +223,11 @@ jewel.board = (function(){
 	}		
 
 	return {
-		initialize:initialize,
-//		canSwap:canSwap,
-		getJewel:getJewel,
-		print:print
+		initialize: initialize,
+		canSwap: canSwap,
+//		getJewel: getJewel,
+		getBoard: getBoard,
+		swap: swap,
+		print: print
 	};
 })();
