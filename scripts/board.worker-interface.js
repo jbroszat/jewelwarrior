@@ -12,7 +12,6 @@ jewel.board = (function(){
 		messageCount = 0;
 		callbacks = [];
 		worker = new Worker("scripts/board.worker.js");
-
 		dom.bind(worker,"message",messageHandler);
 		post("initialize",jewel.settings,callback);
 	}

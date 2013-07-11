@@ -26,6 +26,17 @@ body {
 	display:block;
 }
 
+.jewel-size {
+	font-size:40px;
+}
+
+#jewel-proto {
+	position:absolute;
+	width:1em;
+	height:1em;
+	left:-1000px;
+}
+
 /* SPLASH SCREEN */
 #splash-screen {
 	text-align:center;

@@ -15,6 +15,6 @@ jewel.game = (function() {
 	}
 
 	return {
-		showScreen: showScreen
+		'showScreen': showScreen
 	};
 })();

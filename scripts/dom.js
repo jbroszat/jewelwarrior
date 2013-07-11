@@ -27,10 +27,10 @@ jewel.dom = (function(){
 	}
 	
 	return {
-		$: $,
-		hasClass: hasClass,
-		addClass: addClass,
-		removeClass: removeClass,
-		bind: bind
+		'$': $,
+		'hasClass': hasClass,
+		'addClass': addClass,
+		'removeClass': removeClass,
+		'bind': bind
 	};
 })();
