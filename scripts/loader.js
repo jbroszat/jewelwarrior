@@ -11,17 +11,29 @@ var jewel = {
 };
 
 window.addEventListener('load',function(){
+
+	yepnope.addPrefix("preload",function(resource){
+		resource.noexec = true;
+		return resource;
+	});
+
 	Modernizr.load([{
-		load: [
+		'load': [
 			'scripts/sizzle.js',
 			'scripts/dom.js',
 			'scripts/game.js',
 			'scripts/screen.splash.js',
-			'scripts/screen.main-menu.js',
-			'scripts/board.js'],
-		complete: function() {
+			'scripts/screen.main-menu.js',],
+		'complete': function() {
 			console.log('Modernizr: Done loading scripts.');
 			jewel.game.showScreen('splash-screen');
 		}
+	},{
+		'test': Modernizr.webworkers,
+		'yep': [
+			"scripts/board.worker-interface.js",
+			"preload!scripts/board.worker.js"
+		],
+		'nope': "scripts/board.js"
 	}]);
 });

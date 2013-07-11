@@ -1,5 +1,7 @@
 // board.worker-interface.js
 
+console.log("Board: Using webworkers.");
+
 jewel.board = (function(){
 	var dom = jewel.dom,settings,worker,messageCount,callbacks;
 
@@ -44,4 +46,32 @@ jewel.board = (function(){
 			'y2': y2
 		},callback);
 	}
+
+	function getBoard() {
+		var copy = [],x;
+
+		for (x = 0; x < cols; x++) {
+			copy[x] = jewels[x].slice(0);
+		}
+		return copy;
+	}
+
+	function print() {
+		var str = "";
+		for (var y = 0; y < rows; y++) {
+			for (var x = 0; x < cols; x++) {
+				str += getJewel(x,y) + " ";
+			}
+			str += "\n";
+		}
+		console.log(str);
+	}		
+
+	return {
+		'initialize': initialize,
+		'swap': swap,
+		'getBoard': getBoard,
+		'print': print
+	};
+
 })();
