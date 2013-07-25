@@ -1,13 +1,13 @@
 // dom.js
 
-jewel.dom = (function(){
+jewel.dom = (function() {
 	var $ = Sizzle;
-	
+
 	function hasClass(el, clsName) {
 		var regex = new RegExp("(^|\\s)" + clsName + "(\\s|$)");
 		return regex.test(el.className);
 	}
-	
+
 	function addClass(el, clsName) {
 		if (!hasClass(el, clsName)) {
 			el.className += " " + clsName;
@@ -19,13 +19,13 @@ jewel.dom = (function(){
 		el.className = el.className.replace(regex, " ");
 	}
 
-	function bind(element,event,handler) {
+	function bind(element, event, handler) {
 		if (typeof element == "string") {
 			element = $(element)[0];
 		}
-		element.addEventListener(event,handler,false);
+		element.addEventListener(event, handler, false)
 	}
-	
+
 	return {
 		'$': $,
 		'hasClass': hasClass,
